@@ -6,6 +6,12 @@ export default function EventForm() {
       <Header content="Create Event" />
       <Form>
         <Form.Field>
+          <input type="text" name="" placeholder="Event Title" />
+        </Form.Field>
+        <Form.Field>
+          <input type="text" name="" placeholder="Category" />
+        </Form.Field>
+        <Form.Field>
           <input type="text" name="" placeholder="Description" />
         </Form.Field>
         <Form.Field>
@@ -17,12 +23,9 @@ export default function EventForm() {
         <Form.Field>
           <input type="text" name="" placeholder="Date" />
         </Form.Field>
-        <Form.Field>
-          <input type="text" name="" placeholder="Event Title" />
-        </Form.Field>
 
-        <Button type="submit" floated="right" positive content="Submit" />
-        <Button type="button" floated="right" content="Cancel" />
+        <Button type="submit" positive content="Submit" />
+        <Button type="button" content="Cancel" />
       </Form>
     </Segment>
   );
