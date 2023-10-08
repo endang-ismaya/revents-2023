@@ -7,12 +7,14 @@ type Props = {
   setFormOpen: (value: boolean) => void;
   addEvent: (event: AppEvent) => void;
   selectedEvent: AppEvent | null;
+  updateEvent: (event: AppEvent) => void;
 };
 
 export default function EventForm({
   setFormOpen,
   addEvent,
   selectedEvent,
+  updateEvent,
 }: Props) {
   const initialValues = selectedEvent ?? {
     title: '',
@@ -26,13 +28,16 @@ export default function EventForm({
   const [values, setValues] = useState(initialValues);
 
   function onSubmit() {
-    addEvent({
-      ...values,
-      id: createId(),
-      hostedBy: 'endang',
-      attendees: [],
-      hostPhotoURL: '',
-    });
+    // check if it is an update
+    selectedEvent
+      ? updateEvent({ ...selectedEvent, ...values })
+      : addEvent({
+          ...values,
+          id: createId(),
+          hostedBy: 'endang',
+          attendees: [],
+          hostPhotoURL: '',
+        });
 
     setFormOpen(false);
   }
@@ -44,7 +49,7 @@ export default function EventForm({
 
   return (
     <Segment>
-      <Header content="Create Event" />
+      <Header content={selectedEvent ? 'Update Event' : 'Create Event'} />
       <Form onSubmit={onSubmit}>
         <Form.Field>
           <input

@@ -8,7 +8,7 @@ import EventForm from '../form/EventForm';
 type Props = {
   formOpen: boolean;
   setFormOpen: (value: boolean) => void;
-  selectEvent: (event: AppEvent) => void;
+  selectEvent: (event: AppEvent | null) => void;
   selectedEvent: AppEvent | null;
 };
 
@@ -30,6 +30,16 @@ export default function EventDashboard({
     });
   }
 
+  function updateEvent(updatedEvent: AppEvent) {
+    setEvents(
+      events.map((event) =>
+        event.id === updatedEvent.id ? updatedEvent : event
+      )
+    );
+    selectEvent(null);
+    setFormOpen(false);
+  }
+
   return (
     <Grid>
       <Grid.Column width={10}>
@@ -40,6 +50,7 @@ export default function EventDashboard({
         {formOpen && (
           <EventForm
             setFormOpen={setFormOpen}
+            updateEvent={updateEvent}
             addEvent={addEvent}
             selectedEvent={selectedEvent}
             key={selectedEvent ? selectedEvent.id : 'create'}
